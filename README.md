@@ -2,7 +2,7 @@
 
 An agent skill that publishes a file or folder to a permanent `https://<slug>.deed.page/` URL with one `curl` request. No account, API key, email code, or claim link.
 
-It works with Claude Code, Codex, Cursor, Hermes Agent, and any agent that reads `SKILL.md` files ([agentskills.io](https://agentskills.io) format).
+It works with Claude Code, Codex, Cursor, Gemini CLI, Hermes Agent, and any agent that reads `SKILL.md` files ([agentskills.io](https://agentskills.io) format).
 
 - Website: https://deed.page
 - Docs: https://deed.page/docs
@@ -11,6 +11,12 @@ It works with Claude Code, Codex, Cursor, Hermes Agent, and any agent that reads
 - MCP server: https://deed.page/mcp
 
 The skill is one file: [`skills/deed-page/SKILL.md`](skills/deed-page/SKILL.md).
+
+Quick install for any agent:
+
+```bash
+npx skills add f-o-x11/deed-page-skill
+```
 
 ## Install
 
@@ -52,11 +58,21 @@ Or inside Codex: `$skill-installer install https://github.com/f-o-x11/deed-page-
 npx skills add f-o-x11/deed-page-skill -a cursor
 ```
 
+### Gemini CLI
+
+```bash
+gemini extensions install https://github.com/f-o-x11/deed-page-skill
+```
+
+This installs the skill and the deed.page MCP server (`https://deed.page/mcp`, no auth) from [`gemini-extension.json`](gemini-extension.json).
+
 ### Hermes Agent
 
 ```bash
 hermes skills install f-o-x11/deed-page-skill/skills/deed-page
 ```
+
+Or from the deed.page well-known endpoint: `hermes skills install well-known:https://deed.page/.well-known/skills/deed-page`.
 
 Or `npx skills add f-o-x11/deed-page-skill -a hermes-agent -g`.
 
