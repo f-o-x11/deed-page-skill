@@ -1,18 +1,29 @@
 {
   "name": "deed-page",
   "description": "deed.page skill: publish files to a permanent URL with one curl request.",
-  "owner": { "name": "Avatar 8 LLC", "email": "ops@avatar33.com" },
+  "owner": {
+    "name": "Avatar 8 LLC",
+    "email": "ops@avatar33.com"
+  },
   "plugins": [
     {
       "name": "deed-page",
       "source": "./",
       "description": "Publish files to a permanent deed.page URL. No account.",
-      "version": "1.0.0",
-      "author": { "name": "Avatar 8 LLC", "email": "ops@avatar33.com" },
+      "version": "1.1.0",
+      "author": {
+        "name": "Avatar 8 LLC",
+        "email": "ops@avatar33.com"
+      },
       "homepage": "https://deed.page",
       "license": "MIT",
       "category": "deployment",
-      "keywords": ["hosting", "static-site", "publish", "deploy"]
+      "keywords": [
+        "hosting",
+        "static-site",
+        "publish",
+        "deploy"
+      ]
     }
   ]
 }

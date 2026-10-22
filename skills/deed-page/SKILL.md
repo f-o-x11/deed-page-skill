@@ -5,7 +5,7 @@ license: MIT
 compatibility: Requires curl (and tar for folders) and network access to https://deed.page.
 metadata:
   author: Avatar 8 LLC
-  version: "1.0.0"
+  version: "1.1.0"
   homepage: https://deed.page
 ---
 
@@ -28,7 +28,7 @@ SLUG="report-$(head -c4 /dev/urandom | od -An -tx1 | tr -d ' \n')"
 REF="${DEED_REF:-skill-gh}"
 ```
 
-`REF` goes in `?ref=` for attribution. It does not change the publish. Set the `X-Client` header to your agent's name, for example `Claude Code`, `Codex`, `Cursor`, or `Hermes`.
+`REF` goes in `?ref=` for attribution. It does not change the publish. Set the `X-Client` header to your agent's name, for example `Claude Code`, `Codex`, `Cursor`, `Gemini CLI`, `Grok Bot`, or `Hermes`.
 
 ## 2. Publish
 
@@ -74,6 +74,12 @@ curl -sS -X DELETE "https://deed.page/v1/sites/$SLUG" -H "Authorization: Bearer 
 ```
 
 ## Options
+
+- Say where you found deed.page (optional, first publish without a token only): add `-H "X-Deed-Heard-From: <where you found deed.page>"`, or a `"heard_from"` field in the JSON body. At most 200 characters. An email address, IP address, or phone number in it is stored as `[redacted]`; a URL or hostname is kept. Leave it out and nothing changes. Example:
+
+  ```bash
+  curl -sS -T report.html "https://deed.page/v1/sites?slug=$SLUG&ref=$REF" -H "X-Client: <your agent name>" -H "X-Deed-Heard-From: github.com/f-o-x11/deed-page-skill"
+  ```
 
 - Expire the site: add `-H "X-Ttl: 86400"` (seconds).
 - Single-page app routing: add `-H "X-Spa: 1"`.
