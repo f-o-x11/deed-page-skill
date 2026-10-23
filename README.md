@@ -1,6 +1,6 @@
-# deed.page skill
+# deed.page MCP server and agent skill
 
-An agent skill that publishes a file or folder to a permanent `https://<slug>.deed.page/` URL with one `curl` request. No account, API key, email code, or claim link.
+deed.page publishes a file or folder to a permanent `https://<slug>.deed.page/` URL in one call. No account, API key, email code, or claim link. This repo documents the hosted remote MCP server (`https://deed.page/mcp`, see [MCP server](#mcp-server)) and contains the deed.page agent skill, which does the same with one `curl` request.
 
 It works with Claude Code, Codex, Cursor, Gemini CLI, GitHub Copilot CLI, Grok Bot, Hermes Agent, and any agent that reads `SKILL.md` files ([agentskills.io](https://agentskills.io) format).
 
@@ -9,6 +9,88 @@ It works with Claude Code, Codex, Cursor, Gemini CLI, GitHub Copilot CLI, Grok B
 - llms.txt: https://deed.page/llms.txt
 - OpenAPI: https://deed.page/openapi.json
 - MCP server: https://deed.page/mcp
+
+## MCP server
+
+deed.page runs a hosted remote MCP server. Agents use it to publish a file or folder to a permanent `https://<slug>.deed.page/` URL and then update, version, password-protect, or delete it. The source code is not in this repo; the server is hosted at the URL below.
+
+| | |
+| --- | --- |
+| URL | `https://deed.page/mcp` |
+| Transport | Streamable HTTP |
+| MCP Registry name | `page.deed/deed-page` |
+| Auth | None to start. See [Authentication](#authentication). |
+
+### Configure
+
+VS Code / GitHub Copilot (`.vscode/mcp.json`):
+
+```json
+{
+  "servers": {
+    "deed-page": {
+      "type": "http",
+      "url": "https://deed.page/mcp"
+    }
+  }
+}
+```
+
+Claude Code:
+
+```bash
+claude mcp add --transport http deed-page https://deed.page/mcp
+```
+
+Any other MCP client: add a remote (Streamable HTTP) server with the URL `https://deed.page/mcp`.
+
+### Authentication
+
+No account, API key, or OAuth is needed. The first `publish_site` call returns an owner token (`deed_tok_...`) once. That token is the key to update or delete the sites it owns. Send it back in one of two ways:
+
+- as the optional `Authorization: Bearer deed_tok_...` header, or
+- as the `token` argument of a tool.
+
+Keep the token secret. `rotate_token` replaces it and `revoke_token` revokes it.
+
+### Tools
+
+24 tools:
+
+| Tool | What it does |
+| --- | --- |
+| `publish_site` | Publish files to a live permanent URL at a slug. The first call returns the owner token. |
+| `update_site` | Replace a site's files, or merge in only the paths sent. |
+| `get_site` | Check whether a slug is live, with its URL, version, size, and timestamps (no token needed). |
+| `list_sites` | List every live site the token owns. |
+| `delete_site` | Permanently remove a site. |
+| `list_versions` | List a site's retained versions. |
+| `restore_version` | Make a retained version live again. |
+| `get_manifest` | Get the signed (Ed25519) manifest of a site version. |
+| `plan_upload` | Plan a large upload: returns which files are already stored and an upload URL for each missing one. |
+| `finalize_upload` | Commit a large upload as a new version. |
+| `set_site_access` | Set or clear a site password. |
+| `set_listing` | List a site in the public gallery, or remove it. |
+| `site_analytics` | Cookieless view counts, top paths, referrers, and AI crawler counts for a site. |
+| `add_domain` | Attach a custom domain and get the DNS records to create. |
+| `list_domains` | List custom domains. |
+| `domain_status` | Check and refresh a custom domain's verification and certificate status. |
+| `remove_domain` | Remove a custom domain. |
+| `whoami` | Show the plan, limits, and usage for the token. |
+| `get_upgrade_link` | Get a checkout link for a paid plan. |
+| `rotate_token` | Issue a new owner token; every site carries over. |
+| `revoke_token` | Revoke the current token or all tokens. |
+| `create_webhook` | Register a webhook for site and domain events. |
+| `list_webhooks` | List registered webhooks. |
+| `delete_webhook` | Delete a webhook. |
+
+### Use
+
+Ask your agent to "publish this folder to deed.page" or "host this report and give me a link". The agent calls `publish_site` with the files and answers with the live URL. To change the site later, it calls `update_site` with the same slug and token.
+
+Free plan: 25 sites, 25 MB per site, 60 publishes per hour. Free sites are public, so do not publish secrets. Static files only.
+
+## Skill and plugins
 
 The skill is one file: [`skills/deed-page/SKILL.md`](skills/deed-page/SKILL.md). The repo is also a plugin that bundles the skill with the hosted deed.page MCP server, with manifests for each agent:
 
@@ -90,7 +172,7 @@ The repo includes a Grok Bot plugin manifest in [`.grok-plugin/plugin.json`](.gr
 
 ### Any MCP client
 
-Add the remote MCP server `https://deed.page/mcp` (Streamable HTTP, no auth). It is listed in the official MCP Registry as `page.deed/deed-page`.
+Add the remote MCP server `https://deed.page/mcp` (Streamable HTTP, no auth needed to start; see [MCP server](#mcp-server)). It is listed in the official MCP Registry as `page.deed/deed-page`.
 
 ### Gemini CLI
 
