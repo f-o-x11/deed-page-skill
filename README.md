@@ -211,7 +211,7 @@ and answers with the `url` from the JSON response. The first publish returns a `
 ## Network endpoints and credentials
 
 - The skill calls only `https://deed.page/v1/sites` with `curl`. The MCP server is `https://deed.page/mcp`. Published sites live at `https://<slug>.deed.page/`.
-- No account or API key is needed. The first publish returns a site token once; the skill keeps it in `DEEDPAGE_TOKEN` for the session and sends it only to `https://deed.page` to update or delete that site.
+- No account or API key is needed. The first publish returns a site token once; the skill saves it to `~/.config/deed-page/token` (mode 600), loads it into `DEEDPAGE_TOKEN` before later publishes so every site stays under one owner, and sends it only to `https://deed.page`.
 - No install scripts, hooks, or executable code. See [SECURITY.md](SECURITY.md).
 
 ## Privacy and support

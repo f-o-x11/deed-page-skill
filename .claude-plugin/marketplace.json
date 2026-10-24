@@ -10,7 +10,7 @@
       "name": "deed-page",
       "source": "./",
       "description": "Publish files to a permanent deed.page URL. No account.",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "author": {
         "name": "Avatar 8 LLC",
         "email": "ops@avatar33.com"
