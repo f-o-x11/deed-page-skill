@@ -1,6 +1,6 @@
 {
   "name": "deed-page",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "Publish files to a permanent deed.page URL with one curl request. No account. Bundles the deed-page agent skill and the deed.page MCP server.",
   "mcpServers": {
     "deed-page": {
