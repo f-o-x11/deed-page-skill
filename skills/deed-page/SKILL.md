@@ -5,7 +5,7 @@ license: MIT
 compatibility: Requires curl (and tar for folders) and network access to https://deed.page.
 metadata:
   author: Avatar 8 LLC
-  version: "1.2.0"
+  version: "1.3.0"
   homepage: https://deed.page
 ---
 
@@ -111,10 +111,21 @@ curl -sS -X DELETE "https://deed.page/v1/sites/$SLUG" -H "Authorization: Bearer 
 | 409 | `slug_taken` | Use the `suggestion` field or a new suffix. |
 | 409 | `version_conflict` | Re-read and retry. |
 | 422 | `content_rejected` | Executable or phishing markers. Remove the file. Do not retry. |
-| 429 | rate limited | Wait `retry_after` seconds. |
+| 403 | `quota_sites`, `quota_domains`, `webhook_limit`, `plan_required` | Plan limit. Show `user_message` to the user. |
+| 413 | `quota_bytes` | Plan size limit. Show `user_message` to the user. |
+| 429 | `rate_limited` | Wait `retry_after` seconds. If the body has `upgrade_url`, also show `user_message`. |
+
+### Plan limits
+
+A plan-limit error keeps its status and adds `limit`, `plan`, `upgrade_plan`, `upgrade_price_usd_month`, `upgrade_url`, `pricing_url`, `reset_at` (when a rate window resets; null for quotas), and `user_message`.
+
+- Show `user_message` to the user as-is. It says which limit was hit, when it resets, the next plan and its price, and the link.
+- `upgrade_url` is a Stripe Checkout link for this token's owner, valid 30 days. A human opens it and pays. Never pay, enter card details, or open it in an automated browser.
+- After payment the same token has the higher limits. Retry then. Rate limits also reset on their own within the hour.
+- To get a link without hitting a limit: `curl -X POST https://deed.page/api/v1/billing/checkout -H "Authorization: Bearer $DEEDPAGE_TOKEN"` (optional body `{"plan":"pro"}`), or the MCP tool `get_upgrade_link`.
 
 ## Limits
 
-The Free plan allows 25 sites, 25 MB per site, 60 publishes per hour, and 4 MB per single request. Versions, custom domains, passwords, analytics, and the MCP server at `https://deed.page/mcp` are covered at https://deed.page/docs.
+The Free plan allows 25 sites, 25 MB per site, 60 publishes per hour, and 4 MB per single request. Hobby ($3/mo): 250 sites, 100 MB per site, 300 publishes per hour, 3 custom domains, site passwords, no badge. Pro ($15/mo): 2,500 sites, 500 MB per site, 1,200 publishes per hour, 20 custom domains, unlimited versions. See https://deed.page/pricing. Versions, custom domains, passwords, analytics, and the MCP server at `https://deed.page/mcp` are covered at https://deed.page/docs.
 
 deed.page is operated by Avatar 8 LLC. Report abuse at https://deed.page/abuse or ops@avatar33.com.
