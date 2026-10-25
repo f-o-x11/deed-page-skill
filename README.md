@@ -1,5 +1,7 @@
 # deed.page MCP server and agent skill
 
+[![deed.page skill on AI Agents Listing](https://aiagentslisting.com/deed-page-skill/badge.svg?claim=fa12ee67e464c1b602809f23e618375c)](https://aiagentslisting.com/mcp/deed-page-skill)
+
 deed.page publishes a file or folder to a permanent `https://<slug>.deed.page/` URL in one call. No account, API key, email code, or claim link. This repo documents the hosted remote MCP server (`https://deed.page/mcp`, see [MCP server](#mcp-server)) and contains the deed.page agent skill, which does the same with one `curl` request.
 
 It works with Claude Code, Codex, Cursor, Gemini CLI, GitHub Copilot CLI, Grok Bot, Hermes Agent, and any agent that reads `SKILL.md` files ([agentskills.io](https://agentskills.io) format).
