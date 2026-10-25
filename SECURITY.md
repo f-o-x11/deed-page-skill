@@ -26,7 +26,7 @@ No other hosts are contacted.
 ## Credentials
 
 - No account or API key is needed to publish.
-- The first publish without a token returns a site token (`deed_tok_...`) once. The skill keeps it in the `DEEDPAGE_TOKEN` environment variable for the current session and sends it only to `https://deed.page` as `Authorization: Bearer`, to update or delete that site. It is never written to a published page, a commit, or a log.
+- The first publish without a token returns a site token (`deed_tok_...`) once. The skill saves it to `~/.config/deed-page/token` (file mode 600, directory mode 700), writes that file only when a response contains a non-empty token, and loads it from `DEEDPAGE_TOKEN` or that file before every publish. It sends the token only to `https://deed.page` as `Authorization: Bearer`, to keep all sites under one owner and to update or delete them. It is never written to a published page, a commit, or a log.
 - deed.page stores only a SHA-256 hash of the token.
 
 ## Data
