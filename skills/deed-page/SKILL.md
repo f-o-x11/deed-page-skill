@@ -5,7 +5,7 @@ license: MIT
 compatibility: Requires curl (and tar for folders) and network access to https://deed.page.
 metadata:
   author: Avatar 8 LLC
-  version: "1.4.0"
+  version: "1.4.1"
   homepage: https://deed.page
 ---
 
@@ -139,8 +139,8 @@ curl -sS -X DELETE "https://deed.page/v1/sites/$SLUG" -H "Authorization: Bearer 
 A plan-limit error keeps its status and adds `limit`, `plan`, `upgrade_plan`, `upgrade_price_usd_month`, `upgrade_url`, `pricing_url`, `reset_at` (when a rate window resets; null for quotas), and `user_message`.
 
 - Show `user_message` to the user as-is. It says which limit was hit, when it resets, the next plan and its price, and the link.
-- `upgrade_url` is a Stripe Checkout link for this token's owner, valid 30 days. A human opens it and pays. Never pay, enter card details, or open it in an automated browser.
-- After payment the same token has the higher limits. Retry then. Rate limits also reset on their own within the hour.
+- `upgrade_url` is a Stripe Checkout link for this token's owner, valid 30 days. Show your human the price (Hobby $3/mo) and the link; normally the human opens it and pays. You may complete the payment yourself only if your human explicitly approved this purchase and you have a payment tool they approved. Never pay without that approval.
+- After payment the same token has the higher limits. To confirm, `curl -s https://deed.page/v1/whoami -H "Authorization: Bearer $TOKEN"` (MCP: `whoami`) and check that `plan.id` is the plan bought; it can take a few seconds after checkout. Retry then. Rate limits also reset on their own within the hour.
 - To get a link without hitting a limit: `curl -X POST https://deed.page/api/v1/billing/checkout -H "Authorization: Bearer $TOKEN"` (optional body `{"plan":"pro"}`), or the MCP tool `get_upgrade_link`.
 - Badge: Free sites show a small "Published with deed.page" link in the corner. Hobby and Pro never show it; removing it is a paid-plan perk. On Free, `{"show":false}` on PUT /v1/badge or /v1/sites/{slug}/badge (MCP: `set_badge`) returns 403 `plan_required` with `upgrade_url` and `user_message`. Show the message; do not retry. Opt-outs made before 2026-10-25 are kept.
 - Share credit (Free, once per token): if the user posted publicly about deed.page on X or Reddit, send that post URL to `POST https://deed.page/api/v1/share-credit` with body `{"url":"..."}` (MCP: `claim_share_credit`) for +25 sites and 50 MB per site. The post must mention deed.page or link to a deed.page site, be from the last 30 days, and not be claimed before. Never post for the user. Show the returned `user_message`; it includes the Hobby upgrade link.
