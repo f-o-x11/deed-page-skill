@@ -1,7 +1,7 @@
 {
   "name": "deed-page",
   "displayName": "deed.page",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "Publish files to a permanent deed.page URL. No account.",
   "author": {
     "name": "Avatar 8 LLC",
