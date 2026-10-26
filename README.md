@@ -81,7 +81,7 @@ Keep the token secret. `rotate_token` replaces it and `revoke_token` revokes it.
 | `remove_domain` | Remove a custom domain. |
 | `whoami` | Show the plan, limits, and usage for the token. |
 | `get_upgrade_link` | Get a checkout link for a paid plan. |
-| `set_badge` | Show or hide the "Published with deed.page" badge. Hiding it needs a paid plan. |
+| `set_badge` | Set the "Published with deed.page" badge. Only a paid plan (Hobby $3/mo or Pro) removes it. |
 | `claim_share_credit` | Free only, once per token: send the URL of the user's public X or Reddit post about deed.page for +25 sites and 50 MB per site. |
 | `rotate_token` | Issue a new owner token; every site carries over. |
 | `revoke_token` | Revoke the current token or all tokens. |
