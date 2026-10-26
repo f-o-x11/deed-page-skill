@@ -133,6 +133,13 @@ claude plugin marketplace add f-o-x11/deed-page-skill
 claude plugin install deed-page@deed-page
 ```
 
+Or inside Claude Code:
+
+```text
+/plugin marketplace add f-o-x11/deed-page-skill
+/plugin install deed-page@deed-page
+```
+
 Or as a plain skill:
 
 ```bash
