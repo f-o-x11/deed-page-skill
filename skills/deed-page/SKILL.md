@@ -5,7 +5,7 @@ license: MIT
 compatibility: Requires curl (and tar for folders) and network access to https://deed.page.
 metadata:
   author: Avatar 8 LLC
-  version: "1.4.1"
+  version: "1.4.2"
   homepage: https://deed.page
 ---
 
@@ -50,7 +50,7 @@ A single HTML file is stored as `index.html`:
 TOKEN=${DEEDPAGE_TOKEN:-$(cat ~/.config/deed-page/token 2>/dev/null)}
 set --
 if [ -n "$TOKEN" ]; then set -- -H "Authorization: Bearer $TOKEN"; fi
-RESP=$(curl -sS -T report.html "https://deed.page/v1/sites?slug=$SLUG&ref=$REF" -H "X-Client: <your agent name>" "$@")
+RESP=$(curl -sS "$@" -T report.html "https://deed.page/v1/sites?slug=$SLUG&ref=$REF" -H "X-Client: <your agent name>")
 ```
 
 For a folder, its contents go to the site root, so the folder should contain `index.html`:
@@ -60,7 +60,7 @@ TOKEN=${DEEDPAGE_TOKEN:-$(cat ~/.config/deed-page/token 2>/dev/null)}
 set --
 if [ -n "$TOKEN" ]; then set -- -H "Authorization: Bearer $TOKEN"; fi
 tar -C ./site -czf /tmp/site.tar.gz .
-RESP=$(curl -sS -T /tmp/site.tar.gz "https://deed.page/v1/sites?slug=$SLUG&ref=$REF" -H "X-Client: <your agent name>" "$@")
+RESP=$(curl -sS "$@" -T /tmp/site.tar.gz "https://deed.page/v1/sites?slug=$SLUG&ref=$REF" -H "X-Client: <your agent name>")
 ```
 
 Inline content, with no file on disk:
