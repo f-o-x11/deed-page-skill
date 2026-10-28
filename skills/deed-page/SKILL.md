@@ -1,11 +1,11 @@
 ---
 name: deed-page
-description: Publish files to a permanent deed.page URL. No account.
+description: Publish files to a public deed.page URL only when the user asks to publish, deploy, host, or share a link. Create-only stays local. No account.
 license: MIT
 compatibility: Requires curl (and tar for folders) and network access to https://deed.page.
 metadata:
   author: Avatar 8 LLC
-  version: "1.6.0"
+  version: "1.6.1"
   homepage: https://deed.page
 ---
 
@@ -13,7 +13,13 @@ metadata:
 
 Publish a file or folder to `https://<slug>.deed.page/` with one `curl` request. No account, API key, email code, or claim link. The site stays up until you delete it.
 
-Use this skill when the user asks to publish, host, deploy, share online, "put this online", "give me a link", or "make a website" for something you generated: an HTML report, dashboard, slide deck, landing page, prototype, game, or docs folder. Use it too when you run unattended and cannot ask a human for a code or a click.
+Use this skill when the user asks to publish, deploy, host, share a link, put it online, or give them a link for something you generated: an HTML report, dashboard, slide deck, landing page, prototype, game, or docs folder. That request authorizes the upload.
+
+A create-only request ("make a website", "build a page") produces a local draft only. Show the files and offer to publish. Upload only after the user asks to publish or confirms that offer.
+
+Any other request stops before an upload. Show the destination (a public URL on deed.page, publicly accessible) and the exact file list, and ask for confirmation.
+
+Unattended or non-interactive runs publish only when the instructions for that run explicitly authorize publishing.
 
 Do not publish secrets or private data: free sites are public. deed.page serves static files only, with no server-side code or databases.
 
@@ -50,6 +56,8 @@ REF="${DEED_REF:-skill-gh}"
 `REF` goes in `?ref=` for attribution. It does not change the publish. Set the `X-Client` header to your agent's name, for example `Claude Code`, `Codex`, `Cursor`, `Gemini CLI`, `Grok Bot`, or `Hermes`.
 
 ## 2. Publish
+
+Run these commands only when publishing is authorized. The user asked to publish, deploy, host, share a link, put it online, or give them a link, or they confirmed after you showed the public deed.page URL and the exact file list. A create-only request stays a local draft. An unattended run publishes only when its instructions explicitly authorize publishing.
 
 A single HTML file is stored as `index.html`:
 
@@ -103,7 +111,7 @@ A successful response looks like this:
 
 ## Update or delete
 
-To update, run the same publish command again; it sends the saved token. Each publish is a new version, and the Free plan keeps the last 10.
+To update, run the same publish command again when the user asks to update or publish, or confirms after you show the public URL and the exact file list. It sends the saved token. Each publish is a new version, and the Free plan keeps the last 10.
 
 Delete only when the user asks:
 

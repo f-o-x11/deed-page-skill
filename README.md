@@ -92,7 +92,7 @@ Keep the token secret. `rotate_token` replaces it and `revoke_token` revokes it.
 
 ### Use
 
-Ask your agent to "publish this folder to deed.page" or "host this report and give me a link". The agent calls `publish_site` with the files and answers with the live URL. To change the site later, it calls `update_site` with the same slug and token.
+Ask your agent to "publish this folder to deed.page" or "host this report and give me a link". The agent calls `publish_site` with the files and answers with the live URL. A request that only says "make a website" or "build a page" stays a local draft until you ask to publish or confirm the public URL and the exact file list. An unattended run publishes only when its instructions explicitly say to. To change the site later, it calls `update_site` with the same slug and token.
 
 Free plan: 25 sites, 25 MB per site, 60 publishes per hour. Free sites are public, so do not publish secrets. Static files only. Free sites show a small "Published with deed.page" badge; Hobby ($3/mo) and Pro never do.
 
@@ -213,7 +213,7 @@ Ask your agent to "publish this", "host this report", or "give me a link". The a
 curl -sS -T index.html "https://deed.page/v1/sites?slug=my-report-7f3a2c&ref=skill-gh" -H "X-Client: <agent name>"
 ```
 
-and answers with the `url` from the JSON response. The first publish returns a `token` once. It is the key to update or delete that site, so keep it safe.
+and answers with the `url` from the JSON response. The first publish returns a `token` once. It is the key to update or delete that site, so keep it safe. A request that only says "make a website" or "build a page" produces a local draft. The agent offers to publish and uploads after you ask to publish or confirm the public URL and the exact file list. An unattended run publishes only when its instructions explicitly say to.
 
 - Free plan: 25 sites, 25 MB per site, 60 publishes per hour.
 - Free sites are public. Do not publish secrets.

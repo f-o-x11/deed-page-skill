@@ -1,6 +1,6 @@
 {
   "name": "deed-page",
-  "description": "deed.page skill: publish files to a permanent URL with one curl request.",
+  "description": "deed.page skill: publish files to a public URL when the user asks to publish, host, or share a link.",
   "owner": {
     "name": "Avatar 8 LLC",
     "email": "ops@avatar33.com"
@@ -9,8 +9,8 @@
     {
       "name": "deed-page",
       "source": "./",
-      "description": "Publish files to a permanent deed.page URL. No account.",
-      "version": "1.6.0",
+      "description": "Publish files to a public deed.page URL only when the user asks to publish, deploy, host, or share a link. Create-only stays local. No account.",
+      "version": "1.6.1",
       "author": {
         "name": "Avatar 8 LLC",
         "email": "ops@avatar33.com"
