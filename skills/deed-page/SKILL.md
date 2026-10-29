@@ -2,10 +2,10 @@
 name: deed-page
 description: Publish files to a public deed.page URL only when the user asks to publish, deploy, host, or share a link. Create-only stays local. No account.
 license: MIT
-compatibility: Requires curl (and tar for folders) and network access to https://deed.page.
+compatibility: Requires curl (and tar for folders) and network access to https://deed.page. Folders over 4 MB also need Node 18+.
 metadata:
   author: Avatar 8 LLC
-  version: "1.6.1"
+  version: "1.7.0"
   homepage: https://deed.page
 ---
 
@@ -134,7 +134,7 @@ curl -sS -X DELETE "https://deed.page/v1/sites/$SLUG" -H "Authorization: Bearer 
 - Expire the site: add `-H "X-Ttl: 86400"` (seconds).
 - Single-page app routing: add `-H "X-Spa: 1"`.
 - Add or replace only the paths you send: add `-H "X-Merge: 1"`.
-- Bodies over 4 MB use the manifest upload flow described at https://deed.page/docs.
+- For folders over 4 MB run `sh scripts/publish.sh ./site --slug <slug>`, which uploads through /v1/uploads by itself (needs Node 18+). MCP: plan_upload, run the returned commands, finalize_upload.
 
 ## Errors
 
