@@ -98,7 +98,7 @@ Free plan: 25 sites, 25 MB per site, 60 publishes per hour. Free sites are publi
 
 ## Skill and plugins
 
-The skill is one file: [`skills/deed-page/SKILL.md`](skills/deed-page/SKILL.md). The repo is also a plugin that bundles the skill with the hosted deed.page MCP server, with manifests for each agent:
+The skill is [`skills/deed-page/SKILL.md`](skills/deed-page/SKILL.md). Since 1.7.0 it also ships two optional scripts in [`skills/deed-page/scripts/`](skills/deed-page/scripts/): `publish.sh` publishes a file or folder and, above 4 MB, hands off to `publish-large.mjs` (Node 18+), which uploads through the manifest flow (`/v1/uploads`). They are the same files served at https://deed.page/cli/. The repo is also a plugin that bundles the skill with the hosted deed.page MCP server, with manifests for each agent:
 
 | File | Format |
 | --- | --- |
@@ -225,7 +225,7 @@ and answers with the `url` from the JSON response. The first publish returns a `
 
 - The skill calls only `https://deed.page/v1/sites` with `curl`. The MCP server is `https://deed.page/mcp`. Published sites live at `https://<slug>.deed.page/`.
 - No account or API key is needed. The first publish returns a site token once; the skill saves it to `~/.config/deed-page/token` (mode 600), loads it into `DEEDPAGE_TOKEN` before later publishes so every site stays under one owner, and sends it only to `https://deed.page`.
-- No install scripts, hooks, or executable code. See [SECURITY.md](SECURITY.md).
+- No install scripts or hooks. The only executable code is the two optional publish scripts in `skills/deed-page/scripts/`, which run only when the agent publishes. Above 4 MB, `publish-large.mjs` PUTs file bytes to the Vercel Blob upload URLs that deed.page returns. See [SECURITY.md](SECURITY.md).
 
 ## Privacy and support
 
