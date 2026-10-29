@@ -142,6 +142,9 @@ use_large() {
   if [ "$SPA" -eq 1 ]; then
     set -- "$@" --spa
   fi
+  # exec replaces this shell, so the EXIT trap never runs: remove the archive now.
+  cleanup
+  trap - EXIT INT HUP TERM
   exec "$@"
   exit 2
 }

@@ -10,7 +10,7 @@
       "name": "deed-page",
       "source": "./",
       "description": "Publish files to a public deed.page URL only when the user asks to publish, deploy, host, or share a link. Create-only stays local. No account.",
-      "version": "1.7.0",
+      "version": "1.7.1",
       "author": {
         "name": "Avatar 8 LLC",
         "email": "ops@avatar33.com"

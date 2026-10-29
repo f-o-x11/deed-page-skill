@@ -5,7 +5,7 @@ license: MIT
 compatibility: Requires curl (and tar for folders) and network access to https://deed.page. Folders over 4 MB also need Node 18+.
 metadata:
   author: Avatar 8 LLC
-  version: "1.7.0"
+  version: "1.7.1"
   homepage: https://deed.page
 ---
 
