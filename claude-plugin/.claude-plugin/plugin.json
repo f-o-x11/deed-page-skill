@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+  "name": "deed-page",
+  "displayName": "deed.page",
+  "version": "1.19.0",
+  "description": "Publish HTML, CSS, JavaScript and other static files to a permanent HTTPS URL at <slug>.deed.page, with no account. Update, roll back, list, attach custom domains, read visit counts and delete sites with the owner token from the first publish.",
+  "author": {
+    "name": "Avatar 8 LLC",
+    "email": "ops@avatar33.com",
+    "url": "https://deed.page"
+  },
+  "homepage": "https://deed.page/docs",
+  "repository": "https://github.com/f-o-x11/deed-page-skill",
+  "license": "MIT",
+  "keywords": ["deed.page", "static-site", "hosting", "publish", "deploy", "website", "html-game", "custom-domain"],
+  "icon": "./assets/icon.png",
+  "documentationUrl": "https://deed.page/docs",
+  "supportUrl": "https://deed.page/support",
+  "privacyPolicyUrl": "https://deed.page/privacy",
+  "termsOfServiceUrl": "https://deed.page/terms"
+}

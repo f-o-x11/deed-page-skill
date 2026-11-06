@@ -1,0 +1,22 @@
+{
+  "name": "deed-page",
+  "description": "deed.page plugin: publish static sites from Claude to permanent HTTPS URLs.",
+  "owner": {
+    "name": "Avatar 8 LLC",
+    "email": "ops@avatar33.com",
+    "url": "https://deed.page"
+  },
+  "plugins": [
+    {
+      "name": "deed-page",
+      "source": "./claude-plugin",
+      "description": "Publish HTML, CSS, JavaScript and other static files to a permanent HTTPS URL on deed.page, with no account.",
+      "category": "deployment",
+      "tags": ["hosting", "static-site", "publish", "deploy", "websites", "html-games"]
+    }
+  ],
+  "metadata": {
+    "description": "deed.page plugin from Avatar 8 LLC, version 1.19.0.",
+    "version": "1.19.0"
+  }
+}
