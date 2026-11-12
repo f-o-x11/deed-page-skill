@@ -419,7 +419,16 @@ if [ -n "$TOKEN" ]; then
   fi
 fi
 
-LIVE=$(printf '%s' "$RESP" | sed -n 's/.*"url":"\([^"]*\)".*/\1/p')
+# First "url" is the live site. Later objects (analytics, visits) also have one,
+# and a greedy match would print those instead.
+LIVE=$(
+  case $RESP in
+    *'"url":"'*)
+      _rest=${RESP#*'"url":"'}
+      printf '%s\n' "${_rest%%\"*}"
+      ;;
+  esac
+)
 if [ -z "$LIVE" ]; then
   # Plan-limit errors carry one sentence for the user and a checkout link a human opens.
   MSG=$(printf '%s' "$RESP" | sed -n 's/.*"user_message":"\([^"]*\)".*/\1/p')
